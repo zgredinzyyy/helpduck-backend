@@ -16,31 +16,25 @@ const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-// const InsertHelp = async(author, title, desc, thumbnail, url) => {
-//     try {
-//         const entry = new HelpEntry({ author: author, title: title, desc: desc, thumbnail: thumbnail, url: url });
-//         await entry.save();
-//     }
-//     catch (error) {
-//         console.log(error);
-//     }
-// }
-
-// (async() => {
-//     await InsertHelp("zinzy", "Publikowanie plików (Teams)", "Chcesz udostępnić pliki swoim uczniom? Tak będzie najłatwiej", "https://i.ytimg.com/vi/Q-z-q-z-q-Q/maxresdefault.jpg", "https://docs.google.com/presentation/d/1oE7jgJ3u8eYIb0XwkPfp9VliK9tDcStb/edit?usp=sharing&ouid=110285287655866718197&rtpof=true&sd=true"); 
-//     await db.close(); 
-// })();
+const InsertHelp = async(author, title, desc, thumbnail, url) => {
+    try {
+        const entry = new HelpEntry({ author: author, title: title, desc: desc, thumbnail: thumbnail, url: url });
+        await entry.save();
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
 
 app.get("/help", async (req, res) => {
     const entries = await HelpEntry.find();
     res.send(entries);
 });
 
-app.post("append", async (req, res) => {
+app.post("/append", async (req, res) => {
     const { author, title, desc, thumbnail, url } = req.body;
-    // const entry = new HelpEntry({ author: author, title: title, desc: desc, thumbnail: thumbnail, url: url });
-    // await entry.save();
-    res.send(JSON.stringify(author));
+    await InsertHelp(author, title, desc, thumbnail, url);
+    res.send();
 });
 
 app.listen(PORT, () => {
