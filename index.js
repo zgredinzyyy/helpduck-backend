@@ -36,6 +36,13 @@ app.get("/help", async (req, res) => {
     res.send(entries);
 });
 
+app.post("append", async (req, res) => {
+    const { author, title, desc, thumbnail, url } = req.body;
+    // const entry = new HelpEntry({ author: author, title: title, desc: desc, thumbnail: thumbnail, url: url });
+    // await entry.save();
+    res.send(JSON.stringify(author));
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
