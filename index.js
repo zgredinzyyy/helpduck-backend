@@ -6,9 +6,9 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const cors = require('cors');
 app.use(cors());
+app.use(express.json());
 
 // require('dotenv').config()
-
 
 mongoose.connect(process.env.MONGODB, { useNewUrlParser: true , useUnifiedTopology: true });
 
